@@ -31,7 +31,6 @@ typedef net::tcp::Connection_ptr Connection_ptr;
 template <typename T>
 void setup_terminal(T& inet)
 {
-  // mini terminal
   printf("Setting up terminal on port %u\n", TERM_PORT);
   
   auto& term = inet.tcp().bind(TERM_PORT);
@@ -63,10 +62,6 @@ void Service::start(const std::string&)
   // add own serial out after service start
   auto& com1 = hw::Serial::port<1>();
   OS::add_stdout(com1.get_print_handler());
-
-  printf("\n");
-  printf("-= Starting LiveUpdate test service =-\n");
-  printf("* CPU freq is %f MHz\n", OS::cpu_freq().count());
 
   auto& inet = net::Inet4::ifconfig<0>(
         { 10,0,0,42 },     // IP
